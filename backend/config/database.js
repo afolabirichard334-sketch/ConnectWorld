@@ -4,7 +4,9 @@ const fs = require("fs");
 const path = require("path");
 
 const caCertificate = fs.readFileSync(
-  path.join(__dirname, "../../certs/ca.pem")
+  process.env.NODE_ENV === "production"
+    ? "/etc/secrets/ca.pem"
+    : path.join(__dirname, "../../certs/ca.pem")
 );
 
 const sequelize = new Sequelize(
